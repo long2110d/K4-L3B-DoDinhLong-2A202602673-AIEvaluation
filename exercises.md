@@ -30,10 +30,10 @@ critical.
 
 | Metric | Acceptable Low Score Scenario | Critical Low Score Scenario | Action Required |
 |---|---|---|---|
-| Faithfulness | | | |
-| Answer Relevance | | | |
-| Context Recall | | | |
-| Context Precision | | | |
+| Faithfulness |Câu trả lời có dùng tài liệu được hỗ trợ bởi dẫn chứng|Câu trả lời tự thêm các tài  thêm thời hạn bảo hành hoặc cam kết , khẳng định chính sách không có trong tài liệu |Đối chiếu khẳng định với evidence, yêu cầu trả lời bám sát thông tin không bịa ra thông tin |
+| Answer Relevance |Câu trả lời đúng internt của người hỏi |Khách hỏi mua nhưng chatbot nói sang chủ đề giới thiệu   |Kiểm tra intent người dùng trả lời trực tiếp loại bỏ nội dung lạc đề|
+| Context Recall |AI lấy đủ evidence nhưng kèm nhiều đoạn không liên quan câu trả lời đúng |Các đoạn không liên quan đứng truwocss evidence quan trọng , khiên evidence bị bỏ  khổi context|Rerank để đưa evidence lên đầu , notiddeer tránh bỏ những thông tin cần thiết |
+| Context Precision |Thông tin hữu ích được xếp lên đầu tiên  tránh lost in the middle |Thông tin hữu ích xếp chưa được chính xác còn thưa |thông tin hữu ích xếp không chính xác ở giữa gây loãng context |
 | Completeness | | | |
 
 ### Exercise 1.2 — Bias trong LLM-as-a-Judge

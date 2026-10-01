@@ -245,22 +245,25 @@ class TextGenerator(Protocol):
 class OpenAIGenerator:
     def __init__(self, max_output_tokens: int = 300) -> None:
         api_key = os.getenv("OPENAI_API_KEY", "").strip()
-        self.model = os.getenv("OPENAI_MODEL", "").strip()
-        if not api_key:
+        self.model = os.getenv("OPENAI_MODEL", "gpt-4o-mini").strip()
+        if not api_key or api_key == "your_openai_api_key_here":
             raise RuntimeError("OPENAI_API_KEY is missing from .env")
         if not self.model:
             raise RuntimeError("OPENAI_MODEL is missing from .env")
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(
+            api_key=api_key,
+            base_url="https://api.openai.com/v1",
+        )
         self.max_output_tokens = max_output_tokens
 
     def generate(self, prompt: str) -> str:
-        response = self.client.responses.create(
+        response = self.client.chat.completions.create(
             model=self.model,
-            input=prompt,
+            messages=[{"role": "user", "content": prompt}],
             temperature=0,
-            max_output_tokens=self.max_output_tokens,
+            max_tokens=self.max_output_tokens,
         )
-        answer = response.output_text.strip()
+        answer = (response.choices[0].message.content or "").strip() if response.choices else ""
         if not answer:
             raise RuntimeError("OpenAI returned an empty answer")
         return answer
